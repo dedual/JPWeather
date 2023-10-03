@@ -13,7 +13,7 @@ struct Forecast:Codable, Equatable
     let weather:[Weather]
     
     let owLat:Double // want to distinguish this data from CoreLocation-derived latitude and longitudes
-    let owLon:Double
+    let owLon:Double // need to refactor to account for forecast changes in how this is generated 
     
     let base:String
     let visibilityInMeters:Int
@@ -128,7 +128,14 @@ struct Forecast:Codable, Equatable
         self.snow3H = try snow.decode(Double.self, forKey: .threeH)
         
         self.dt_timestamp = try values.decode(Int.self, forKey: .dt)
+        self.sunrise_timestamp = try sys.decode(Int.self, forKey: .sunrise)
+        self.sunset_timestamp = try sys.decode(Int.self, forKey: .sunset)
+        self.countryCode = try sys.decode(String.self, forKey: .country)
         
+        self.name = try values.decode(String.self, forKey: .name)
     }
     
+    func encode(to encoder: Encoder) throws {
+        // to finish tomorrow
+    }
 }
