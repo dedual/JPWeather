@@ -1,0 +1,18 @@
+//
+//  JPWeatherDemo.xcconfig
+//  JPWeather
+//
+//  Created by Nicolas Dedual on 10/2/23.
+//
+
+// Configuration settings file format documentation can be found at:
+// https://help.apple.com/xcode/#/dev745c5c974
+
+// Note: We should consider writing a bash script to autopopulate this file (later on if we wanted to have more dynamic configurations)
+
+#include "secrets.xcconfig"
+
+APP_NAME = JPWeather
+APP_BUNDLE_ID = com.deent.JPWeather
+
+OPENWEATHER_BASE_URL = https:/$()/api.openweathermap.org/
