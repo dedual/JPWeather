@@ -9,7 +9,7 @@ import Foundation
 
 struct Weather: Codable, Equatable
 {
-    let idWeather:String
+    let idWeather:Int
     let main:String
     let description:String
     let iconString:String 
@@ -25,7 +25,7 @@ struct Weather: Codable, Equatable
     init(from decoder: Decoder) throws {
         let container = try decoder.container(keyedBy: CodingKeys.self)
         
-        self.idWeather = try container.decode(String.self, forKey: .idWeather)
+        self.idWeather = try container.decode(Int.self, forKey: .idWeather)
         self.main = try container.decode(String.self, forKey: .mainWeather)
         self.description = try container.decode(String.self, forKey: .descriptionWeather)
         self.iconString = try container.decode(String.self, forKey: .iconString)

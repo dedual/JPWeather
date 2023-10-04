@@ -12,7 +12,7 @@ struct NetworkingConstants
     struct OpenWeather
     {
         static let host = Environment.openWeatherBaseURL
-        static let base = "base/"
+        static let base = "data/"
         static let version = "2.5/"
         
         // different api paths we currently support
@@ -55,14 +55,48 @@ extension Dictionary where Key == String, Value == String {
     }
 }
 
-public enum NetworkError: Error, Equatable {
-    case badURL(_ error: String)
-    case apiError(code: Int, error: String)
-    case invalidJSON(_ error: String)
-    case unauthorized(code: Int, error: String)
-    case badRequest(code: Int, error: String)
-    case serverError(code: Int, error: String)
-    case noResponse(_ error: String)
-    case unableToParseData(_ error: String)
-    case unknown(code: Int, error: String)
+// TODO: Need to redo the below
+enum RequestError: Error { // redo
+    case badURL(_ error: String?)
+    case invalidURL
+    case cannotDecode
+    case apiError(code: Int, error: String?)
+    case invalidJSON
+    case unauthorized(code: Int?)
+    case badRequest(code: Int)
+    case serverError(code: Int)
+    case noResponse
+    case unableToParseData(_ error: String?)
+    case offline
+    case unknown(error: String?)
+
+    var customMessage: String {
+        switch self {
+        case .cannotDecode:
+            return "Error: Cannot decode"
+        case .unauthorized(let code):
+            return "Error: Session expired. \(code != nil ? "Code error \(code!)" :"")"
+        case .unknown(let error):
+            return "Error: An unknown error has occured. " + (error ?? "")
+        case .badURL(let error):
+            return "Error: A Bad URL was detected. \(error != nil ? "Error: \(error!)" :"")"
+        case .invalidURL:
+            return "Error: invalid URL"
+        case .apiError(code: let code, error: let error):
+            return "Error: API error code \(code). \(error != nil ? "Error: \(error!)" :"")"
+        case .invalidJSON:
+            return "Error: Invalid JSON detected"
+        case .badRequest(code: let code):
+            return "Error: Bad request sent. Code \(code)"
+        case .serverError(code: let code):
+            return "Server error. Code \(code)"
+        case .noResponse:
+            return "Error: No response from server"
+        case .unableToParseData(let error):
+            return "Error, unable to parse data.\(error != nil ? "Error: \(error!)" :"")"
+        case .offline:
+            return "Error. Device is offline"
+        }
+    }
 }
+

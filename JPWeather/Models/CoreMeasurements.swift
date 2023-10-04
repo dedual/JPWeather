@@ -15,8 +15,8 @@ struct CoreMeasurements:Codable, Equatable
     let maxTemperature:Double
     let pressure:Int
     let humidity:Int
-    let seaLevel:Int
-    let groundLevel:Int
+    let seaLevel:Int?
+    let groundLevel:Int?
     
     enum CodingKeys:String, CodingKey
     {
@@ -38,8 +38,8 @@ struct CoreMeasurements:Codable, Equatable
         self.maxTemperature = try container.decode(Double.self, forKey: .maxTemperature)
         self.pressure = try container.decode(Int.self, forKey: .pressure)
         self.humidity = try container.decode(Int.self, forKey: .humidity)
-        self.seaLevel = try container.decode(Int.self, forKey: .seaLevel)
-        self.groundLevel = try container.decode(Int.self, forKey: .groundLevel)
+        self.groundLevel = try? container.decode(Int.self, forKey: .groundLevel)
+        self.seaLevel = try? container.decode(Int.self, forKey: .seaLevel)
     }
     
     func encode(to encoder: Encoder) throws {
@@ -51,7 +51,7 @@ struct CoreMeasurements:Codable, Equatable
         try container.encode(self.maxTemperature, forKey: .maxTemperature)
         try container.encode(self.pressure, forKey: .pressure)
         try container.encode(self.humidity, forKey: .humidity)
-        try container.encode(self.seaLevel, forKey: .seaLevel)
-        try container.encode(self.groundLevel, forKey: .groundLevel)
+        try? container.encode(self.seaLevel, forKey: .seaLevel)
+        try? container.encode(self.groundLevel, forKey: .groundLevel)
     }
 }

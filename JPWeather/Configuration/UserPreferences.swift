@@ -69,7 +69,8 @@ public enum UserPreferences {
             if deviceLanguage == "en_US_POSIX" ||
                 deviceLanguage == "en_US" ||
                 deviceLanguage == "haw_US" ||
-                deviceLanguage == "es_US"
+                deviceLanguage == "es_US" ||
+                deviceLanguage == "en"
             {
                 return "imperial"
             }

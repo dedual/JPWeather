@@ -28,7 +28,17 @@
 		37E9A9572ACBAFA7006434B0 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9562ACBAFA7006434B0 /* Cacher.swift */; };
 		37E9A9592ACBB185006434B0 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9582ACBB185006434B0 /* ImageCacher.swift */; };
 		37E9A95B2ACBB1A9006434B0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A95A2ACBB1A9006434B0 /* ImageLoader.swift */; };
-		37E9A95D2ACBC289006434B0 /* MultiDayForecastResponse.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A95C2ACBC289006434B0 /* MultiDayForecastResponse.swift */; };
+		37E9A95D2ACBC289006434B0 /* MultiDayForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A95C2ACBC289006434B0 /* MultiDayForecast.swift */; };
+		37E9A95F2ACC42F7006434B0 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A95E2ACC42F7006434B0 /* HTTPClient.swift */; };
+		37E9A9612ACCCD29006434B0 /* LocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9602ACCCD29006434B0 /* LocationInfo.swift */; };
+		37E9A9632ACCE0E6006434B0 /* CurrentForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9622ACCE0E6006434B0 /* CurrentForecast.swift */; };
+		37E9A9682ACD060F006434B0 /* ForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9672ACD060F006434B0 /* ForecastView.swift */; };
+		37E9A96A2ACD068E006434B0 /* PredictedForecastView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9692ACD068E006434B0 /* PredictedForecastView.swift */; };
+		37E9A96C2ACD06FE006434B0 /* ForecastViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A96B2ACD06FE006434B0 /* ForecastViewModel.swift */; };
+		37E9A96E2ACD09F7006434B0 /* SearchLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A96D2ACD09F7006434B0 /* SearchLocationsView.swift */; };
+		37E9A9702ACD0A05006434B0 /* SearchLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A96F2ACD0A05006434B0 /* SearchLocationsViewModel.swift */; };
+		37E9A9722ACD0A17006434B0 /* SetttingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9712ACD0A16006434B0 /* SetttingsView.swift */; };
+		37E9A9742ACD0A21006434B0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9732ACD0A21006434B0 /* SettingsViewModel.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -74,7 +84,17 @@
 		37E9A9562ACBAFA7006434B0 /* Cacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
 		37E9A9582ACBB185006434B0 /* ImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
 		37E9A95A2ACBB1A9006434B0 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
-		37E9A95C2ACBC289006434B0 /* MultiDayForecastResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDayForecastResponse.swift; sourceTree = "<group>"; };
+		37E9A95C2ACBC289006434B0 /* MultiDayForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDayForecast.swift; sourceTree = "<group>"; };
+		37E9A95E2ACC42F7006434B0 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
+		37E9A9602ACCCD29006434B0 /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
+		37E9A9622ACCE0E6006434B0 /* CurrentForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = CurrentForecast.swift; sourceTree = "<group>"; };
+		37E9A9672ACD060F006434B0 /* ForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastView.swift; sourceTree = "<group>"; };
+		37E9A9692ACD068E006434B0 /* PredictedForecastView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = PredictedForecastView.swift; sourceTree = "<group>"; };
+		37E9A96B2ACD06FE006434B0 /* ForecastViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastViewModel.swift; sourceTree = "<group>"; };
+		37E9A96D2ACD09F7006434B0 /* SearchLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationsView.swift; sourceTree = "<group>"; };
+		37E9A96F2ACD0A05006434B0 /* SearchLocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationsViewModel.swift; sourceTree = "<group>"; };
+		37E9A9712ACD0A16006434B0 /* SetttingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetttingsView.swift; sourceTree = "<group>"; };
+		37E9A9732ACD0A21006434B0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -181,7 +201,9 @@
 				37E9A9392ACB897F006434B0 /* Forecast.swift */,
 				37E9A93B2ACB898A006434B0 /* Weather.swift */,
 				37E9A93D2ACB8AA6006434B0 /* CoreMeasurements.swift */,
-				37E9A95C2ACBC289006434B0 /* MultiDayForecastResponse.swift */,
+				37E9A9622ACCE0E6006434B0 /* CurrentForecast.swift */,
+				37E9A95C2ACBC289006434B0 /* MultiDayForecast.swift */,
+				37E9A9602ACCCD29006434B0 /* LocationInfo.swift */,
 			);
 			path = Models;
 			sourceTree = "<group>";
@@ -189,6 +211,9 @@
 		37E9A9382ACAEBDE006434B0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				37E9A9642ACD05B3006434B0 /* Forecast */,
+				37E9A9652ACD05EB006434B0 /* Search */,
+				37E9A9662ACD05F4006434B0 /* Settings */,
 			);
 			path = UI;
 			sourceTree = "<group>";
@@ -226,8 +251,37 @@
 			children = (
 				37E9A9522ACBAD63006434B0 /* Router.swift */,
 				37E9A9542ACBAD71006434B0 /* NetworkingConstants.swift */,
+				37E9A95E2ACC42F7006434B0 /* HTTPClient.swift */,
 			);
 			path = Base;
+			sourceTree = "<group>";
+		};
+		37E9A9642ACD05B3006434B0 /* Forecast */ = {
+			isa = PBXGroup;
+			children = (
+				37E9A9672ACD060F006434B0 /* ForecastView.swift */,
+				37E9A9692ACD068E006434B0 /* PredictedForecastView.swift */,
+				37E9A96B2ACD06FE006434B0 /* ForecastViewModel.swift */,
+			);
+			path = Forecast;
+			sourceTree = "<group>";
+		};
+		37E9A9652ACD05EB006434B0 /* Search */ = {
+			isa = PBXGroup;
+			children = (
+				37E9A96D2ACD09F7006434B0 /* SearchLocationsView.swift */,
+				37E9A96F2ACD0A05006434B0 /* SearchLocationsViewModel.swift */,
+			);
+			path = Search;
+			sourceTree = "<group>";
+		};
+		37E9A9662ACD05F4006434B0 /* Settings */ = {
+			isa = PBXGroup;
+			children = (
+				37E9A9712ACD0A16006434B0 /* SetttingsView.swift */,
+				37E9A9732ACD0A21006434B0 /* SettingsViewModel.swift */,
+			);
+			path = Settings;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
@@ -365,18 +419,28 @@
 			files = (
 				37E9A95B2ACBB1A9006434B0 /* ImageLoader.swift in Sources */,
 				37E9A93E2ACB8AA6006434B0 /* CoreMeasurements.swift in Sources */,
+				37E9A96E2ACD09F7006434B0 /* SearchLocationsView.swift in Sources */,
+				37E9A9702ACD0A05006434B0 /* SearchLocationsViewModel.swift in Sources */,
+				37E9A9612ACCCD29006434B0 /* LocationInfo.swift in Sources */,
 				37E9A94C2ACB9E80006434B0 /* UserPreferences.swift in Sources */,
 				37E9A9532ACBAD63006434B0 /* Router.swift in Sources */,
+				37E9A9682ACD060F006434B0 /* ForecastView.swift in Sources */,
+				37E9A9722ACD0A17006434B0 /* SetttingsView.swift in Sources */,
 				37E9A9592ACBB185006434B0 /* ImageCacher.swift in Sources */,
 				37E9A9552ACBAD71006434B0 /* NetworkingConstants.swift in Sources */,
-				37E9A95D2ACBC289006434B0 /* MultiDayForecastResponse.swift in Sources */,
+				37E9A95D2ACBC289006434B0 /* MultiDayForecast.swift in Sources */,
+				37E9A96C2ACD06FE006434B0 /* ForecastViewModel.swift in Sources */,
 				37E9A9502ACBAD3C006434B0 /* APIManager.swift in Sources */,
 				37E9A93C2ACB898A006434B0 /* Weather.swift in Sources */,
 				37E9A9492ACB99E1006434B0 /* Environment.swift in Sources */,
+				37E9A96A2ACD068E006434B0 /* PredictedForecastView.swift in Sources */,
 				37E9A90F2ACAE8E3006434B0 /* ContentView.swift in Sources */,
+				37E9A95F2ACC42F7006434B0 /* HTTPClient.swift in Sources */,
+				37E9A9632ACCE0E6006434B0 /* CurrentForecast.swift in Sources */,
 				37E9A9572ACBAFA7006434B0 /* Cacher.swift in Sources */,
 				37E9A93A2ACB897F006434B0 /* Forecast.swift in Sources */,
 				37E9A90D2ACAE8E3006434B0 /* JPWeatherApp.swift in Sources */,
+				37E9A9742ACD0A21006434B0 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -546,11 +610,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JPWeather/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to know your location to get your local forecast. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -576,11 +642,13 @@
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JPWeather/Info.plist;
+				INFOPLIST_KEY_NSLocationWhenInUseUsageDescription = "We need to know your location to get your local forecast. ";
 				INFOPLIST_KEY_UIApplicationSceneManifest_Generation = YES;
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchScreen_Generation = YES;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
 				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPhone = "UIInterfaceOrientationPortrait UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight";
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

@@ -11,19 +11,22 @@ enum Router:Equatable
 {
     case current(lat:Double, lon:Double)
     case forecast(lat:Double, lon:Double)
+    case currentWithQuery(query:String)
+    case forecastWithQuery(query:String)
     // note: don't use OpenWeather's geocoding service. Apple provides a more accurate one that's free to iOS developers
     
     var url:String
     {
         switch self
         {
-        case .current:
+        case .current, .currentWithQuery:
             return NetworkingConstants.OpenWeather.host +
             NetworkingConstants.OpenWeather.base +
             NetworkingConstants.OpenWeather.version +
             NetworkingConstants.OpenWeather.currentWeather
+
             
-        case .forecast:
+        case .forecast, .forecastWithQuery:
             return NetworkingConstants.OpenWeather.host +
             NetworkingConstants.OpenWeather.base +
             NetworkingConstants.OpenWeather.version +
@@ -61,7 +64,13 @@ enum Router:Equatable
                 URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
                 URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
             ]
-            
+        case .currentWithQuery(let query):
+            return [
+                URLQueryItem(name:"q", value: "\(query)"),
+                URLQueryItem(name:"appid", value: Environment.openWeatherAPIKey),
+                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
+                URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
+            ]
         case .forecast(let lat, let lon):
             return [
                 URLQueryItem(name:"lat", value: "\(lat)"),
@@ -70,6 +79,14 @@ enum Router:Equatable
                 URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
                 URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
             ]
+        case .forecastWithQuery(let query):
+            return [
+                URLQueryItem(name:"q", value: "\(query)"),
+                URLQueryItem(name:"appid", value: Environment.openWeatherAPIKey),
+                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
+                URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
+            ]
+
         }
     }
     
