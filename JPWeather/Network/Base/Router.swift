@@ -61,14 +61,14 @@ enum Router:Equatable
                 URLQueryItem(name:"lat", value: "\(lat)"),
                 URLQueryItem(name:"lon", value: "\(lon)"),
                 URLQueryItem(name:"appid", value: Environment.openWeatherAPIKey),
-                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
+                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit.rawValue),
                 URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
             ]
         case .currentWithQuery(let query):
             return [
                 URLQueryItem(name:"q", value: "\(query)"),
                 URLQueryItem(name:"appid", value: Environment.openWeatherAPIKey),
-                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
+                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit.rawValue),
                 URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
             ]
         case .forecast(let lat, let lon):
@@ -76,14 +76,14 @@ enum Router:Equatable
                 URLQueryItem(name:"lat", value: "\(lat)"),
                 URLQueryItem(name:"lon", value: "\(lon)"),
                 URLQueryItem(name:"appid", value: Environment.openWeatherAPIKey),
-                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
+                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit.rawValue),
                 URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
             ]
         case .forecastWithQuery(let query):
             return [
                 URLQueryItem(name:"q", value: "\(query)"),
                 URLQueryItem(name:"appid", value: Environment.openWeatherAPIKey),
-                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit),
+                URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit.rawValue),
                 URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
             ]
 

@@ -64,16 +64,37 @@ struct LocationInfo:Codable, Equatable, Identifiable
         case country
     }
     
-    init(name:String, latitude:Double, longitude:Double)
+    init(id:Int = Int.random(in:1..<10000), 
+         name:String,
+         latitude:Double,
+         longitude:Double,
+         sunrise:Int = 1,
+         sunset:Int = 1,
+         country:String? = nil,
+         population:Int? = nil)
     {
         // constructor used for temporary LocationInfo
         
         self.name = name
-        self.id = Int.random(in:1..<10000)
+        self.id = id
         self.owLat = latitude
         self.owLon = longitude
-        self.sunrise_timestamp = 1
-        self.sunset_timestamp = 1
+        self.sunrise_timestamp = sunrise
+        self.sunset_timestamp = sunset
+        self.population = population
+        self.country = country
+    }
+    
+    static var mock:LocationInfo
+    {
+        return LocationInfo(id: 5110253,
+                            name: "Bronx County",
+                            latitude: 40.8301,
+                            longitude: -73.9482,
+                            sunrise: 1696416899,
+                            sunset: 1696458838,
+                            country: "US", 
+                            population: 1385108)
     }
     
     init(from decoder: Decoder) throws {

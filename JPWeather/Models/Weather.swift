@@ -6,13 +6,24 @@
 //
 
 import Foundation
+import SwiftUI
 
 struct Weather: Codable, Equatable
 {
     let idWeather:Int
     let main:String
     let description:String
-    let iconString:String 
+    let iconString:String
+    
+    var iconURL:URL?
+    {
+        return URL(string: "https://openweathermap.org/img/wn/\(iconString).png")
+    }
+    
+    var icon2XURL:URL?
+    {
+        return URL(string: "https://openweathermap.org/img/wn/\(iconString)@2x.png")
+    }
     
     enum CodingKeys:String, CodingKey
     {

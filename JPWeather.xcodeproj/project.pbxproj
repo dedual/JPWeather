@@ -38,7 +38,9 @@
 		37E9A96E2ACD09F7006434B0 /* SearchLocationsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A96D2ACD09F7006434B0 /* SearchLocationsView.swift */; };
 		37E9A9702ACD0A05006434B0 /* SearchLocationsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A96F2ACD0A05006434B0 /* SearchLocationsViewModel.swift */; };
 		37E9A9722ACD0A17006434B0 /* SetttingsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9712ACD0A16006434B0 /* SetttingsView.swift */; };
-		37E9A9742ACD0A21006434B0 /* SettingsViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9732ACD0A21006434B0 /* SettingsViewModel.swift */; };
+		37E9A9762ACD2312006434B0 /* TestCurrentForecast.json in Resources */ = {isa = PBXBuildFile; fileRef = 37E9A9752ACD2312006434B0 /* TestCurrentForecast.json */; };
+		37E9A9782ACD2338006434B0 /* TestFutureForecast.json in Resources */ = {isa = PBXBuildFile; fileRef = 37E9A9772ACD2337006434B0 /* TestFutureForecast.json */; };
+		37E9A97A2ACD2A1A006434B0 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9792ACD2A1A006434B0 /* Units.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -94,7 +96,9 @@
 		37E9A96D2ACD09F7006434B0 /* SearchLocationsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationsView.swift; sourceTree = "<group>"; };
 		37E9A96F2ACD0A05006434B0 /* SearchLocationsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchLocationsViewModel.swift; sourceTree = "<group>"; };
 		37E9A9712ACD0A16006434B0 /* SetttingsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SetttingsView.swift; sourceTree = "<group>"; };
-		37E9A9732ACD0A21006434B0 /* SettingsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SettingsViewModel.swift; sourceTree = "<group>"; };
+		37E9A9752ACD2312006434B0 /* TestCurrentForecast.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestCurrentForecast.json; sourceTree = "<group>"; };
+		37E9A9772ACD2337006434B0 /* TestFutureForecast.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestFutureForecast.json; sourceTree = "<group>"; };
+		37E9A9792ACD2A1A006434B0 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -223,6 +227,8 @@
 			children = (
 				37E9A9422ACB9481006434B0 /* JPWeatherDemo.xcconfig */,
 				37E9A94D2ACBA027006434B0 /* SupportedLocales.plist */,
+				37E9A9752ACD2312006434B0 /* TestCurrentForecast.json */,
+				37E9A9772ACD2337006434B0 /* TestFutureForecast.json */,
 			);
 			path = Resources;
 			sourceTree = "<group>";
@@ -232,6 +238,7 @@
 			children = (
 				37E9A9482ACB99E1006434B0 /* Environment.swift */,
 				37E9A94B2ACB9E80006434B0 /* UserPreferences.swift */,
+				37E9A9792ACD2A1A006434B0 /* Units.swift */,
 			);
 			path = Configuration;
 			sourceTree = "<group>";
@@ -279,7 +286,6 @@
 			isa = PBXGroup;
 			children = (
 				37E9A9712ACD0A16006434B0 /* SetttingsView.swift */,
-				37E9A9732ACD0A21006434B0 /* SettingsViewModel.swift */,
 			);
 			path = Settings;
 			sourceTree = "<group>";
@@ -392,6 +398,8 @@
 				37E9A9452ACB959F006434B0 /* secrets.xcconfig in Resources */,
 				37E9A9142ACAE8E5006434B0 /* Preview Assets.xcassets in Resources */,
 				37E9A9432ACB9481006434B0 /* JPWeatherDemo.xcconfig in Resources */,
+				37E9A9762ACD2312006434B0 /* TestCurrentForecast.json in Resources */,
+				37E9A9782ACD2338006434B0 /* TestFutureForecast.json in Resources */,
 				37E9A9112ACAE8E5006434B0 /* Assets.xcassets in Resources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -420,6 +428,7 @@
 				37E9A95B2ACBB1A9006434B0 /* ImageLoader.swift in Sources */,
 				37E9A93E2ACB8AA6006434B0 /* CoreMeasurements.swift in Sources */,
 				37E9A96E2ACD09F7006434B0 /* SearchLocationsView.swift in Sources */,
+				37E9A97A2ACD2A1A006434B0 /* Units.swift in Sources */,
 				37E9A9702ACD0A05006434B0 /* SearchLocationsViewModel.swift in Sources */,
 				37E9A9612ACCCD29006434B0 /* LocationInfo.swift in Sources */,
 				37E9A94C2ACB9E80006434B0 /* UserPreferences.swift in Sources */,
@@ -440,7 +449,6 @@
 				37E9A9572ACBAFA7006434B0 /* Cacher.swift in Sources */,
 				37E9A93A2ACB897F006434B0 /* Forecast.swift in Sources */,
 				37E9A90D2ACAE8E3006434B0 /* JPWeatherApp.swift in Sources */,
-				37E9A9742ACD0A21006434B0 /* SettingsViewModel.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};

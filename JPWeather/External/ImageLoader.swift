@@ -24,7 +24,7 @@ public final class ImageLoader {
         self.cache = cache
     }
 
-    public func loadImage(from url: URL) -> AnyPublisher<UIImage?, Never> {
+    public func loadImage(from url: URL) -> AnyPublisher<UIImage?, Never> { // should be rewritten with async throws in mind
         if let image = cache[url] {
             return Just(image).eraseToAnyPublisher()
         }

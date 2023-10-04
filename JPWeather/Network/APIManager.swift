@@ -21,10 +21,28 @@ protocol APIManagerProtocol
 public class APIManager: HTTPClient, APIManagerProtocol
 {
     static var requestTimeOut:Float = 15.0
+    static var refreshInterval = TimeInterval(NetworkingConstants.OpenWeather.staleness_timelapse_seconds)
     static let shared = APIManager() // it's not as much in fashion to use singletons
     
     private let geocoder = CLGeocoder()
     private let localRequest = MKLocalSearch.Request()
+    
+    // MARK: - To be used later when implementing caching
+    private var lastUpdated: Date {
+       get {
+          UserDefaults.standard.object(forKey: UserPreferences.Keys.lastUpdated) as! Date
+       }
+       set {
+          UserDefaults.standard.set(newValue, forKey: UserPreferences.Keys.lastUpdated)
+       }
+    }
+    
+    private var shouldUpdate: Bool {
+        if abs(lastUpdated.timeIntervalSinceNow) > APIManager.refreshInterval {
+          return true
+       }
+       return false
+    }
 
     // MARK: - Private functions
     

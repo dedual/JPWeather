@@ -19,4 +19,22 @@ struct CurrentForecast:Codable, Equatable
         self.forecast = try forecastContainer.decode(Forecast.self)
         self.locationInfo = try forecastContainer.decode(LocationInfo.self)
     }
+    
+    static var mock:CurrentForecast
+    {
+        if let url = Bundle.main.url(forResource: "TestCurrentForecast", withExtension: "json") {
+                do {
+                    let data = try Data(contentsOf: url)
+                    let decoder = JSONDecoder()
+                    let jsonData = try decoder.decode(CurrentForecast.self, from: data)
+                    return jsonData
+                } catch {
+                    print("error:\(error)")
+                    fatalError("Error: \(error)")
+                }
+            }
+        else {
+            fatalError("Could not open test json file")
+        }
+    }
 }

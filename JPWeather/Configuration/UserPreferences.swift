@@ -13,6 +13,7 @@ public enum UserPreferences {
         static let preferredUnits = "PreferredUnits"
         static let lastLocationRetrieved = "LastLocationRetrieved"
         static let preferredLanguage = "PreferredLanguage"
+        static let lastUpdated = "LastUpdated"
     }
     
     // MARK: - Variables -
@@ -53,11 +54,11 @@ public enum UserPreferences {
         return value // safe to use the value provided then
     }
     
-    static private func ensureValidMeasurementUnit(unit:String) -> String
+    static private func ensureValidMeasurementUnit(unit:String) -> TemperatureUnit
     {
-        if unit == "standard" || unit == "metric" || unit == "imperial"
+        if TemperatureUnit.validUnit(rawString: unit)
         {
-            return unit
+            return TemperatureUnit(rawValue: unit) ?? .metric
         }
         
         // check the locale, make assumptions.
@@ -72,25 +73,26 @@ public enum UserPreferences {
                 deviceLanguage == "es_US" ||
                 deviceLanguage == "en"
             {
-                return "imperial"
+                return TemperatureUnit.imperial
             }
         }
         
-        return "metric"
+        return TemperatureUnit.metric
         
     }
     
     // MARK: - Public Getters and Setters
+    
     static func setPreferredMeasurementUnit(value:String)
     {
         // clean value
         
         let cleanMeasurementValue = ensureValidMeasurementUnit(unit: value)
         
-        userDefaults.setValue(cleanMeasurementValue, forKey: Keys.preferredUnits)
+        userDefaults.setValue(cleanMeasurementValue.rawValue, forKey: Keys.preferredUnits)
     }
     
-    static var getPreferredMeasurementUnit: String
+    static var getPreferredMeasurementUnit: TemperatureUnit
     {
         if let unit = userDefaults.value(forKey: Keys.preferredUnits) as? String
         {

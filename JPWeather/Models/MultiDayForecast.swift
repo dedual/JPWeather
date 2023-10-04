@@ -31,4 +31,22 @@ struct MultiDayForecast:Codable, Equatable
         try container.encode(forecasts, forKey: .forecasts)
         try container.encode(locationInfo, forKey: .location)
     }
+    
+    static var mock:MultiDayForecast?
+    {
+        if let url = Bundle.main.url(forResource: "TestFutureForecast", withExtension: "json") {
+            do {
+                let data = try Data(contentsOf: url)
+                let decoder = JSONDecoder()
+                let jsonData = try decoder.decode(MultiDayForecast.self, from: data)
+                return jsonData
+            } catch {
+                print("error:\(error)")
+                fatalError("Error: \(error)")
+            }
+        }
+        else {
+            fatalError("Could not open test json file")
+        }
+    }
 }
