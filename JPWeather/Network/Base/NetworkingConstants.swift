@@ -55,6 +55,25 @@ extension Dictionary where Key == String, Value == String {
     }
 }
 
+enum LocationError: Error
+{
+    case denied(_ error:String?)
+    case unknown(_ error:String?)
+    
+    var customMessage: String
+    {
+        switch self
+        {
+        case .denied(let error):
+            return "Error: Cannot retrieve location.\n\(error != nil ? "Error: \(error!)" :"")"
+        case .unknown(let error):
+            return "Error: Cannot retrieve location.\n\(error != nil ? "Error: \(error!)" :"")"
+        default: // may add other errors. Keep in case
+            return "Error: Cannot retrieve location"
+        }
+    }
+}
+
 // TODO: Need to redo the below
 enum RequestError: Error { // redo
     case badURL(_ error: String?)

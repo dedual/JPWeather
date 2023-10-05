@@ -12,6 +12,8 @@ struct SettingsView: View
 {
     @State private var selectedUnit: TemperatureUnit = UserPreferences.getPreferredMeasurementUnit
     
+    @State private var alwaysUseLocation:Bool = UserPreferences.alwaysUseUserLocation
+    
     var body: some View {
         NavigationStack {
             Form {
@@ -25,7 +27,13 @@ struct SettingsView: View
                     }.onChange(of: selectedUnit) { _ in
                         UserPreferences.setPreferredMeasurementUnit(value: selectedUnit.rawValue)
                     }
+                    Toggle(isOn: $alwaysUseLocation) {
+                        Text("Always use device location on app load")
+                    }.onChange(of: alwaysUseLocation){_ in
                     
+                        UserPreferences.alwaysUseUserLocation = alwaysUseLocation
+                        
+                    }
                 }
                 
             }

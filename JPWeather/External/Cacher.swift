@@ -7,6 +7,9 @@
 //
 //  with modifications by: Nicolas J. Dedual
 
+// NOTE: Thought about using this as a foundation to built a cacher for the json data, since it updates every
+// three hours. However, ran out of time and as such this code is unused.
+// Still, keeping it as reference. 
 import Foundation
 
 /// `Cacher` is a super simple cross platform solution to persist `Cachable` types into the filesystem.

@@ -11,87 +11,82 @@ import Combine
 class ForecastViewModel:ObservableObject {
     @Published private (set) var currentForecast:CurrentForecast?
     @Published private (set) var multidayForecast:MultiDayForecast?
-    
-    @Published private (set) var cleanedTemperature:String?
-    @Published private (set) var cleanedFeelsLikeTemperature:String?
-    
-    private var locationInfo:LocationInfo
-    
-    // MARK: - Functions
-    
-    init(locationInfo:LocationInfo) {
-        self.locationInfo = locationInfo
-        refreshForecast(locationInfo: locationInfo)
-    }
+    @Published private (set) var isLoading:Bool = false
+    @Published var showAlert:Bool = false
+    @Published private (set) var showAlertMessage:String?
+    // quick way to show alerts and errors. We'll want to link to device settings in case
+    // location permissions are rejected and the user is trying to use them.
     
     // MARK: - Methods
     
     func refreshForecast(locationInfo:LocationInfo)
     {
+        isLoading = true
         Task{
             do{
                 let tempWeather = try await APIManager.shared.current(latitude: locationInfo.owLat, longitude: locationInfo.owLon)
-                // update text variables
-                if let temperature = currentForecast?.forecast.coreMeasurements.temperature
-                {
-                    self.cleanedTemperature = "\(cleanNumberDisplay(temperature) + " " +  UserPreferences.getPreferredMeasurementUnit.unitText)"
-                }
-                else
-                {
-                    self.cleanedTemperature = nil
-                }
-                
-                if let feelsLike = currentForecast?.forecast.coreMeasurements.feelsLike
-                {
-                    self.cleanedFeelsLikeTemperature = "\(cleanNumberDisplay(feelsLike)) \(UserPreferences.getPreferredMeasurementUnit.unitText)"
-                }
-                else
-                {
-                    self.cleanedFeelsLikeTemperature = nil
-                }
-
-                self.currentForecast = tempWeather
-            }
-            catch
-            {
-                print(error)
-            }
-        }
-        Task{
-            do
-            {
                 let multiForecast = try await APIManager.shared.forecast(latitude: locationInfo.owLat, longitude: locationInfo.owLon)
-            }
-            catch
-            {
-                print(error)
-            }
-        }
-    }
-    
-    private func cleanNumberDisplay(_ input:Double) -> String // candidate for viewmodel
-    {
-        let formatter = NumberFormatter()
 
-        formatter.usesSignificantDigits = true
-        formatter.numberStyle = NumberFormatter.Style.decimal
-        formatter.roundingMode = NumberFormatter.RoundingMode.halfUp
-        formatter.maximumFractionDigits = 2
-        
-        if let result = formatter.string(from: input as NSNumber) {
-            return result
-        }
-        else
-        {
-            return "\(input)"
+                // doing both at the same time as we don't need to parallelize the returns.
+                // they return quick enough
+                
+                await MainActor.run {
+                    self.currentForecast = tempWeather
+                    self.multidayForecast = multiForecast
+
+                    UserPreferences.lastRetrievedLocationInfo = tempWeather.locationInfo
+                    UserPreferences.lastUpdated = .now
+                    showAlert = false
+                    showAlertMessage = nil
+                    isLoading = false
+                }
+            }
+            catch let error as RequestError
+            {
+                showAlertMessage = error.customMessage
+                showAlert = true
+                print(error)
+                isLoading = false
+            }
         }
     }
     
-    private func makeHourText(date:Date) -> String
+    func refreshForecastUsingLocation()
     {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
-        
-        return dateFormatter.string(from: date)
+        // function is slow AF because the core location calls are being done on the main thread. Ridiculous, must rethink this
+        isLoading = true
+        Task{
+            do{
+                let tempWeather = try await APIManager.shared.currentUsingCoreLocation()
+                let multiForecast = try await APIManager.shared.forecastUsingCoreLocation()
+
+                // doing both at the same time as we don't need to parallelize the returns.
+                // they return quick enough
+                
+                await MainActor.run {
+                    self.currentForecast = tempWeather
+                    self.multidayForecast = multiForecast
+
+                    UserPreferences.lastRetrievedLocationInfo = tempWeather.locationInfo
+                    UserPreferences.lastUpdated = .now
+                    showAlert = false
+                    showAlertMessage = nil
+                    isLoading = false
+                }
+            }
+            catch let error as RequestError
+            {
+                showAlertMessage = error.customMessage
+                showAlert = true
+                isLoading = false
+            }
+            
+            catch let error as LocationError
+            {
+                showAlertMessage = error.customMessage
+                showAlert = true
+                isLoading = false
+            }
+        }
     }
 }

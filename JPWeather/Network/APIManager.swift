@@ -9,6 +9,7 @@ import Foundation
 import Combine
 import CoreLocation // we need it for CLGeocoder
 import MapKit // to get better searching for locations
+import AsyncLocationKit
 
 protocol APIManagerProtocol
 {
@@ -27,7 +28,7 @@ public class APIManager: HTTPClient, APIManagerProtocol
     private let geocoder = CLGeocoder()
     private let localRequest = MKLocalSearch.Request()
     
-    // MARK: - To be used later when implementing caching
+    // MARK: - To be used later when implementing caching for data (if there's enough time)
     private var lastUpdated: Date {
        get {
           UserDefaults.standard.object(forKey: UserPreferences.Keys.lastUpdated) as! Date
@@ -49,7 +50,7 @@ public class APIManager: HTTPClient, APIManagerProtocol
     func getTempLocationInfoObjects(address:String) async throws -> [LocationInfo]?
     {
         localRequest.naturalLanguageQuery = address
-        var localSearch = MKLocalSearch(request:localRequest)
+        let localSearch = MKLocalSearch(request:localRequest)
         
         let searchResponse = try await localSearch.start()
         
@@ -91,6 +92,71 @@ public class APIManager: HTTPClient, APIManagerProtocol
         return validLocations.first! // why first? Apple only returns one value via CLGeocoder
     }
     // MARK: - API calls -
+    
+    // Core Location ones
+    @MainActor
+    func currentUsingCoreLocation() async throws -> CurrentForecast
+    {
+        var asyncLocationManager = AsyncLocationManager(desiredAccuracy: .bestAccuracy)
+
+        let permission = await asyncLocationManager.requestPermission(with: .whenInUsage)
+            
+            if permission == .authorizedWhenInUse || permission == .authorizedAlways
+            {
+                // we're in business
+                do{
+                    let location = try await asyncLocationManager.requestLocation()
+                    switch location {
+                    case .didUpdateLocations(let locations):
+                        if let first = locations.first{
+                            let forecast = try await current(latitude: first.coordinate.latitude, longitude: first.coordinate.longitude)
+                            
+                            return forecast
+                        }
+                        throw LocationError.unknown("Unable to decipher a coordinate from CoreLocation")
+                    case .didFailWith(let error):
+                        throw LocationError.unknown(error.localizedDescription)
+                    default:
+                        break
+                        
+                    }
+                }
+                catch
+                {
+                    throw LocationError.unknown("Something went wrong retrieving your location")
+                }
+            }
+            throw LocationError.denied("We are unable to retrieve your device's location via Location Services.\nPlease authorize.")
+    }
+    
+    @MainActor
+    func forecastUsingCoreLocation() async throws -> MultiDayForecast
+    {
+        var asyncLocationManager = AsyncLocationManager(desiredAccuracy: .bestAccuracy)
+
+        let permission = await asyncLocationManager.requestPermission(with: .whenInUsage)
+        
+        if permission == .authorizedWhenInUse || permission == .authorizedAlways
+        {
+            // we're in business
+            let location = try await asyncLocationManager.requestLocation()
+            switch location {
+            case .didUpdateLocations(let locations):
+                if let first = locations.first{
+                    return try await forecast(latitude: first.coordinate.latitude, longitude: first.coordinate.longitude)
+                }
+                throw LocationError.unknown("Unable to decipher a coordinate from CoreLocation")
+            case .didFailWith(let error):
+                throw LocationError.unknown(error.localizedDescription)
+            default:
+                break
+                
+            }
+        }
+        
+        throw LocationError.denied("We are unable to retrieve your device's location via Location Services.\nPlease authorize.")
+    }
+    
     func current(latitude: Double, longitude: Double) async throws -> CurrentForecast {
         return try await sendRequest(endpoint: .current(lat: latitude, lon: longitude), responseModel: CurrentForecast.self)
     }

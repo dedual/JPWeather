@@ -14,7 +14,7 @@ struct ContentView: View {
     var body: some View {
         
         TabView(selection: $selectedTabIndex) {
-            ForecastView(currentForecast: $currentForecast)
+            ForecastView()
                 .tag(0)
                 .tabItem {
                     Label("Current", systemImage: "network")
@@ -29,36 +29,6 @@ struct ContentView: View {
                 .tabItem {
                     Label("Settings", systemImage: "gearshape")
                 }
-        }
-        .onAppear{
-            Task {
-                do{
-                    let tempWeather = try await APIManager.shared.current(latitude: 40.83009389151496, longitude: -73.94816973208368)
-                    self.currentForecast = tempWeather
-
-                    await MainActor.run {
-                        self.currentForecast = tempWeather
-                        print(tempWeather)
-
-                    }
-                }
-                catch
-                {
-                    print(error)
-                }
-            }
-             Task{
-                do{
-                    let multiForecast = try await APIManager.shared.forecast(latitude: 40.83009389151496, longitude: -73.94816973208368)
-                    
-                    await MainActor.run {
-                        print(multiForecast)
-                    }
-                } catch 
-                {
-                    print(error)
-                }
-            } 
         }
     }
 }

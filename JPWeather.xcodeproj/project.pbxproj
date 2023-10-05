@@ -26,8 +26,6 @@
 		37E9A9532ACBAD63006434B0 /* Router.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9522ACBAD63006434B0 /* Router.swift */; };
 		37E9A9552ACBAD71006434B0 /* NetworkingConstants.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9542ACBAD71006434B0 /* NetworkingConstants.swift */; };
 		37E9A9572ACBAFA7006434B0 /* Cacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9562ACBAFA7006434B0 /* Cacher.swift */; };
-		37E9A9592ACBB185006434B0 /* ImageCacher.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9582ACBB185006434B0 /* ImageCacher.swift */; };
-		37E9A95B2ACBB1A9006434B0 /* ImageLoader.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A95A2ACBB1A9006434B0 /* ImageLoader.swift */; };
 		37E9A95D2ACBC289006434B0 /* MultiDayForecast.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A95C2ACBC289006434B0 /* MultiDayForecast.swift */; };
 		37E9A95F2ACC42F7006434B0 /* HTTPClient.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A95E2ACC42F7006434B0 /* HTTPClient.swift */; };
 		37E9A9612ACCCD29006434B0 /* LocationInfo.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9602ACCCD29006434B0 /* LocationInfo.swift */; };
@@ -41,6 +39,10 @@
 		37E9A9762ACD2312006434B0 /* TestCurrentForecast.json in Resources */ = {isa = PBXBuildFile; fileRef = 37E9A9752ACD2312006434B0 /* TestCurrentForecast.json */; };
 		37E9A9782ACD2338006434B0 /* TestFutureForecast.json in Resources */ = {isa = PBXBuildFile; fileRef = 37E9A9772ACD2337006434B0 /* TestFutureForecast.json */; };
 		37E9A97A2ACD2A1A006434B0 /* Units.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9792ACD2A1A006434B0 /* Units.swift */; };
+		37E9A97D2ACE3DE2006434B0 /* CachedAsyncImage in Frameworks */ = {isa = PBXBuildFile; productRef = 37E9A97C2ACE3DE2006434B0 /* CachedAsyncImage */; };
+		37E9A9832ACE3E9C006434B0 /* AsyncLocationKit in Frameworks */ = {isa = PBXBuildFile; productRef = 37E9A9822ACE3E9C006434B0 /* AsyncLocationKit */; };
+		37E9A9862ACE4B2C006434B0 /* Date+Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9852ACE4B2C006434B0 /* Date+Extensions.swift */; };
+		37E9A9892ACE6099006434B0 /* ActivityIndicator.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A9882ACE6099006434B0 /* ActivityIndicator.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXContainerItemProxy section */
@@ -84,8 +86,6 @@
 		37E9A9522ACBAD63006434B0 /* Router.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Router.swift; sourceTree = "<group>"; };
 		37E9A9542ACBAD71006434B0 /* NetworkingConstants.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkingConstants.swift; sourceTree = "<group>"; };
 		37E9A9562ACBAFA7006434B0 /* Cacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Cacher.swift; sourceTree = "<group>"; };
-		37E9A9582ACBB185006434B0 /* ImageCacher.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageCacher.swift; sourceTree = "<group>"; };
-		37E9A95A2ACBB1A9006434B0 /* ImageLoader.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ImageLoader.swift; sourceTree = "<group>"; };
 		37E9A95C2ACBC289006434B0 /* MultiDayForecast.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = MultiDayForecast.swift; sourceTree = "<group>"; };
 		37E9A95E2ACC42F7006434B0 /* HTTPClient.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = HTTPClient.swift; sourceTree = "<group>"; };
 		37E9A9602ACCCD29006434B0 /* LocationInfo.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationInfo.swift; sourceTree = "<group>"; };
@@ -99,6 +99,8 @@
 		37E9A9752ACD2312006434B0 /* TestCurrentForecast.json */ = {isa = PBXFileReference; lastKnownFileType = text.json; path = TestCurrentForecast.json; sourceTree = "<group>"; };
 		37E9A9772ACD2337006434B0 /* TestFutureForecast.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; path = TestFutureForecast.json; sourceTree = "<group>"; };
 		37E9A9792ACD2A1A006434B0 /* Units.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Units.swift; sourceTree = "<group>"; };
+		37E9A9852ACE4B2C006434B0 /* Date+Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = "Date+Extensions.swift"; sourceTree = "<group>"; };
+		37E9A9882ACE6099006434B0 /* ActivityIndicator.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ActivityIndicator.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -106,6 +108,8 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				37E9A97D2ACE3DE2006434B0 /* CachedAsyncImage in Frameworks */,
+				37E9A9832ACE3E9C006434B0 /* AsyncLocationKit in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -152,6 +156,7 @@
 			isa = PBXGroup;
 			children = (
 				37E9A90C2ACAE8E3006434B0 /* JPWeatherApp.swift */,
+				37E9A9842ACE4B08006434B0 /* Extensions */,
 				37E9A94A2ACB9E6B006434B0 /* External */,
 				37E9A9472ACB99CF006434B0 /* Configuration */,
 				37E9A9372ACAE9EA006434B0 /* Models */,
@@ -215,6 +220,7 @@
 		37E9A9382ACAEBDE006434B0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
+				37E9A9872ACE6086006434B0 /* Common */,
 				37E9A9642ACD05B3006434B0 /* Forecast */,
 				37E9A9652ACD05EB006434B0 /* Search */,
 				37E9A9662ACD05F4006434B0 /* Settings */,
@@ -247,8 +253,6 @@
 			isa = PBXGroup;
 			children = (
 				37E9A9562ACBAFA7006434B0 /* Cacher.swift */,
-				37E9A9582ACBB185006434B0 /* ImageCacher.swift */,
-				37E9A95A2ACBB1A9006434B0 /* ImageLoader.swift */,
 			);
 			path = External;
 			sourceTree = "<group>";
@@ -290,6 +294,22 @@
 			path = Settings;
 			sourceTree = "<group>";
 		};
+		37E9A9842ACE4B08006434B0 /* Extensions */ = {
+			isa = PBXGroup;
+			children = (
+				37E9A9852ACE4B2C006434B0 /* Date+Extensions.swift */,
+			);
+			path = Extensions;
+			sourceTree = "<group>";
+		};
+		37E9A9872ACE6086006434B0 /* Common */ = {
+			isa = PBXGroup;
+			children = (
+				37E9A9882ACE6099006434B0 /* ActivityIndicator.swift */,
+			);
+			path = Common;
+			sourceTree = "<group>";
+		};
 /* End PBXGroup section */
 
 /* Begin PBXNativeTarget section */
@@ -306,6 +326,10 @@
 			dependencies = (
 			);
 			name = JPWeather;
+			packageProductDependencies = (
+				37E9A97C2ACE3DE2006434B0 /* CachedAsyncImage */,
+				37E9A9822ACE3E9C006434B0 /* AsyncLocationKit */,
+			);
 			productName = JPWeather;
 			productReference = 37E9A9092ACAE8E3006434B0 /* JPWeather.app */;
 			productType = "com.apple.product-type.application";
@@ -378,6 +402,10 @@
 				Base,
 			);
 			mainGroup = 37E9A9002ACAE8E3006434B0;
+			packageReferences = (
+				37E9A97B2ACE3DE2006434B0 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */,
+				37E9A9812ACE3E9C006434B0 /* XCRemoteSwiftPackageReference "AsyncLocationKit" */,
+			);
 			productRefGroup = 37E9A90A2ACAE8E3006434B0 /* Products */;
 			projectDirPath = "";
 			projectRoot = "";
@@ -425,18 +453,18 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
-				37E9A95B2ACBB1A9006434B0 /* ImageLoader.swift in Sources */,
 				37E9A93E2ACB8AA6006434B0 /* CoreMeasurements.swift in Sources */,
 				37E9A96E2ACD09F7006434B0 /* SearchLocationsView.swift in Sources */,
 				37E9A97A2ACD2A1A006434B0 /* Units.swift in Sources */,
 				37E9A9702ACD0A05006434B0 /* SearchLocationsViewModel.swift in Sources */,
+				37E9A9892ACE6099006434B0 /* ActivityIndicator.swift in Sources */,
 				37E9A9612ACCCD29006434B0 /* LocationInfo.swift in Sources */,
 				37E9A94C2ACB9E80006434B0 /* UserPreferences.swift in Sources */,
 				37E9A9532ACBAD63006434B0 /* Router.swift in Sources */,
 				37E9A9682ACD060F006434B0 /* ForecastView.swift in Sources */,
 				37E9A9722ACD0A17006434B0 /* SetttingsView.swift in Sources */,
-				37E9A9592ACBB185006434B0 /* ImageCacher.swift in Sources */,
 				37E9A9552ACBAD71006434B0 /* NetworkingConstants.swift in Sources */,
+				37E9A9862ACE4B2C006434B0 /* Date+Extensions.swift in Sources */,
 				37E9A95D2ACBC289006434B0 /* MultiDayForecast.swift in Sources */,
 				37E9A96C2ACD06FE006434B0 /* ForecastViewModel.swift in Sources */,
 				37E9A9502ACBAD3C006434B0 /* APIManager.swift in Sources */,
@@ -786,6 +814,38 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		37E9A97B2ACE3DE2006434B0 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/lorenzofiamingo/swiftui-cached-async-image.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 2.1.1;
+			};
+		};
+		37E9A9812ACE3E9C006434B0 /* XCRemoteSwiftPackageReference "AsyncLocationKit" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/AsyncSwift/AsyncLocationKit.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 1.6.4;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		37E9A97C2ACE3DE2006434B0 /* CachedAsyncImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37E9A97B2ACE3DE2006434B0 /* XCRemoteSwiftPackageReference "swiftui-cached-async-image" */;
+			productName = CachedAsyncImage;
+		};
+		37E9A9822ACE3E9C006434B0 /* AsyncLocationKit */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 37E9A9812ACE3E9C006434B0 /* XCRemoteSwiftPackageReference "AsyncLocationKit" */;
+			productName = AsyncLocationKit;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 37E9A9012ACAE8E3006434B0 /* Project object */;
 }

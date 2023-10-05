@@ -145,6 +145,8 @@ struct LocationInfo:Codable, Equatable, Identifiable
         var coordContainer = container.nestedContainer(keyedBy: CoordKeys.self, forKey: .coord)
         
         try container.encode(name, forKey: .name)
+        try container.encode(id, forKey: .cityId)
+
         try container.encode(sunrise_timestamp, forKey: .sunrise)
         try container.encode(sunset_timestamp, forKey: .sunset)
         try? container.encode(country, forKey: .country)

@@ -9,11 +9,14 @@ import Foundation
 
 public enum UserPreferences {
     
+    // Need to refactor this enum as it's doing a lot that's not strictly tied to "UserPreferences"
+    
     enum Keys {
         static let preferredUnits = "PreferredUnits"
         static let lastLocationRetrieved = "LastLocationRetrieved"
         static let preferredLanguage = "PreferredLanguage"
         static let lastUpdated = "LastUpdated"
+        static let alwaysUseUserLocation = "AlwaysUseUserLocation"
     }
     
     // MARK: - Variables -
@@ -36,6 +39,78 @@ public enum UserPreferences {
         }
         return dict
     }()
+    
+    static var lastRetrievedLocationInfo:LocationInfo? {
+        get
+        {
+            if let locationStored = userDefaults.object(forKey: Keys.lastLocationRetrieved) as? Data
+            {
+                let decoder = JSONDecoder()
+                do{
+                    return try decoder.decode(LocationInfo.self, from: locationStored)
+                }
+                catch
+                {
+                    print(error)
+                    print("?")
+                }
+                return nil
+            }
+            else
+            {
+                return nil
+            }
+        }
+        set
+        {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue) 
+            {
+                userDefaults.set(encoded, forKey: Keys.lastLocationRetrieved)
+            }
+        }
+    }
+    
+    static var alwaysUseUserLocation:Bool
+    {
+        get
+        {
+            return userDefaults.bool(forKey: Keys.alwaysUseUserLocation)
+        }
+        
+        set
+        {
+            userDefaults.setValue(newValue, forKey: Keys.alwaysUseUserLocation)
+        }
+    }
+    
+    static var lastUpdated:Date? {
+        get
+        {
+            if let dateStored = userDefaults.object(forKey: Keys.lastUpdated) as? Data
+            {
+                let decoder = JSONDecoder()
+                if let date = try? decoder.decode(Date.self, from: dateStored)
+                {
+                    return date
+                }
+                return nil
+            }
+            else
+            {
+                return nil
+            }
+        }
+        set
+        {
+            let encoder = JSONEncoder()
+            if let encoded = try? encoder.encode(newValue)
+            {
+                userDefaults.set(encoded, forKey: Keys.lastUpdated)
+            }
+        }
+    }
+    
     // Note: with more time, we should test RTL UI support
     
     // MARK: - Internal functions
@@ -82,6 +157,9 @@ public enum UserPreferences {
     }
     
     // MARK: - Public Getters and Setters
+    
+    // I was tired when writing this. I had forgotten about get set.
+    // to rewrite once I rest. - Nick D.
     
     static func setPreferredMeasurementUnit(value:String)
     {

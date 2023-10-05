@@ -32,7 +32,7 @@ struct MultiDayForecast:Codable, Equatable
         try container.encode(locationInfo, forKey: .location)
     }
     
-    static var mock:MultiDayForecast?
+    static var mock:MultiDayForecast
     {
         if let url = Bundle.main.url(forResource: "TestFutureForecast", withExtension: "json") {
             do {

@@ -31,8 +31,12 @@ struct SearchLocationsView:View {
             List {
                 ForEach(filteredRetrievedLocations) { location in
                     VStack(alignment: .leading) {
-                        Text(location.name)
-                            .font(.headline)
+                        Button(action: {
+                            // trigger API call
+                        }){
+                            Text(location.name)
+                                .font(.headline)
+                        }
                     }
                 }
             }
@@ -48,7 +52,11 @@ struct SearchLocationsView:View {
     
     func runSearch(){
         Task {
-            retrievedLocations = try await APIManager.shared.getTempLocationInfoObjects(address:searchLocationsText) ?? []
+            let locations = try await APIManager.shared.getTempLocationInfoObjects(address:searchLocationsText) ?? []
+            await MainActor.run
+            {
+                retrievedLocations = locations
+            }
         }
     }
 }

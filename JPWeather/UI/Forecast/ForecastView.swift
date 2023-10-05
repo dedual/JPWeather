@@ -6,51 +6,12 @@
 //
 
 import Foundation
+import CachedAsyncImage
 import SwiftUI
 
 struct ForecastWeatherIconView:View
 {
-    @State var url:URL?
-    @State var description:String
-    @State var temperature:String
-    @State var feelsLike: String
-    @State var visibility:String
-    @State var sunrise:String
-    @State var sunset:String
-            
-    var body: some View
-    {
-        return HStack(alignment:.center, spacing:10.0){
-            Spacer()
-            VStack(alignment: .center, content: {
-                AsyncImage(url:url){ image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        
-                } placeholder: {
-                    Color.gray
-                }.frame(width: 75, height: 75)
-                Text(description)
-            })
-            Spacer()
-            VStack(alignment:.leading, spacing: 5)
-            {
-                Text("\(temperature)").fontWeight(.bold)
-                Text("feels like \(feelsLike)")
-                Text("Visibility: \(visibility)")
-                Text("Sunrise at: \(sunrise)")
-                Text("Sunset at: \(sunset)")
-
-            }
-            Spacer()
-        }
-    }
-}
-
-struct ForecastView:View {
-    
-    var currentForecast:Binding<CurrentForecast>
+    let currentForecast:CurrentForecast
     
     private func cleanNumberDisplay(_ input:Double) -> String // candidate for viewmodel
     {
@@ -77,44 +38,124 @@ struct ForecastView:View {
         
         return dateFormatter.string(from: date)
     }
+            
+    var body: some View
+    {
+        HStack(alignment:.center, spacing:10.0){
+            Spacer()
+            VStack(alignment: .center, content: {
+                CachedAsyncImage(url:currentForecast.forecast.weather.first?.iconURL){ image in
+                    image
+                        .resizable()
+                        .aspectRatio(contentMode: .fill)
+                        
+                } placeholder: {
+                    Color.gray
+                }.frame(width: 75, height: 75)
+                Text(currentForecast.forecast.weather.first?.description ?? "")
+            })
+            Spacer()
+            VStack(alignment:.leading, spacing: 5)
+            {
+                Text("\(cleanNumberDisplay(currentForecast.forecast.coreMeasurements.temperature))" + " " + "\(UserPreferences.getPreferredMeasurementUnit.unitText)").fontWeight(.bold)
+                Text("feels like " + "\(cleanNumberDisplay(currentForecast.forecast.coreMeasurements.temperature))" + " " + "\(UserPreferences.getPreferredMeasurementUnit.unitText)")
+                Text("Visibility: \(cleanNumberDisplay(100.0 * currentForecast.forecast.visibilityPercentage))%")
+                Text("Sunrise at: \(makeHourText(date: currentForecast.locationInfo.sunriseDate))")
+                Text("Sunset at: \(makeHourText(date: currentForecast.locationInfo.sunsetDate))")
+            }
+            Spacer()
+        }
+    }
+}
+
+struct ForecastView:View {
+    
+    @StateObject private var viewModel:ForecastViewModel
+    
+    // MARK: - init
+    
+    init()
+    {
+        let localVM = ForecastViewModel()
+        _viewModel = StateObject(wrappedValue: localVM)
+    }
     
     var body: some View {
         NavigationStack {
-            if let weather = currentForecast.forecast.weather.first
+            if let forecast = viewModel.currentForecast
             {
                 ScrollView{
                     VStack(alignment: .center ,spacing: 10) {
-                        ForecastWeatherIconView(url: weather.iconURL,
-                                                description: weather.description, 
-                                                temperature: "\(cleanNumberDisplay(currentForecast.forecast.coreMeasurements.temperature) + " " +  UserPreferences.getPreferredMeasurementUnit.unitText)",feelsLike:"\(cleanNumberDisplay(currentForecast.forecast.coreMeasurements.feelsLike) + " " +  UserPreferences.getPreferredMeasurementUnit.unitText)",
-                                                visibility: "\(cleanNumberDisplay(100.0*currentForecast.forecast.visibilityPercentage))%",
-                                                sunrise:makeHourText(date: currentForecast.locationInfo.sunriseDate),
-                                                sunset:makeHourText(date: currentForecast.locationInfo.sunsetDate))
+                        ForecastWeatherIconView(currentForecast:forecast)
                         Spacer()
                     }
                 }
                 .toolbar {
                     ToolbarItem(placement: .principal) {
                         HStack {
-                            Text("\(currentForecast.locationInfo.name)").font(.headline)
+                            Text("\(forecast.locationInfo.name)").font(.headline)
                         }
                     }
                 }
             }
             else
             {
-                Text("Pull to refresh current forecast")
-                    .toolbar {
+                Text("Cannot retrieve weather forecast").font(.largeTitle)
+                Spacer()
+                if UserPreferences.lastRetrievedLocationInfo == nil
+                {
+                    Button {
+                        // go to search view
+                    } label: {
+                        Text("Search for a location in the search view").font(.title)
+                    }
+                    Text("or maybe").font(.title)
+                    Button {
+                        // trigger location request
+                        viewModel.refreshForecastUsingLocation()
+                    } label: {
+                        Text("Use your device's location?").font(.title)
+                    }
+                }
+                else
+                {
+                    Text("Pull to refresh").font(.title)
+
+                }
+                    Spacer().toolbar {
                         ToolbarItem(placement: .principal) {
                             HStack {
-                                Text("<location>").font(.headline)
+                                Text("Unknown location").font(.headline)
                         }
                     }
                 }
             }
         }
+        .alert(isPresented: $viewModel.showAlert) {
+            Alert(title: Text("Uh-oh"), message: Text(viewModel.showAlertMessage ?? "An error has occured!"), dismissButton: .default(Text("Okay")))
+        }
+        .modifier(ActivityIndicatorModifier(isLoading: viewModel.isLoading))
+        .onAppear {
+            if UserPreferences.alwaysUseUserLocation
+            {
+                viewModel.refreshForecastUsingLocation()
+            }
+            else if let location = UserPreferences.lastRetrievedLocationInfo
+            {
+                viewModel.refreshForecast(locationInfo:location)
+            }
+        }.refreshable {
+            if UserPreferences.alwaysUseUserLocation
+            {
+                viewModel.refreshForecastUsingLocation()
+            }
+            else if let location = UserPreferences.lastRetrievedLocationInfo
+            {
+                viewModel.refreshForecast(locationInfo: location)
+            }
+        }
     }
 }
 #Preview {
-    ForecastView(currentForecast: .constant(CurrentForecast.mock))
+    ForecastView()
 }
