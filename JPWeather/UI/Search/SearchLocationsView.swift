@@ -34,28 +34,34 @@ struct SearchLocationsView:View {
     var body: some View {
         NavigationStack {
             List {
-                Button {
-                    // trigger location request
-                    dismissSearch()
-                    UserPreferences.tempUseUserLocation = true
-                    searchLocationsText = ""
-                    selectedTabIndex = 0
-                } label: {
-                    Text("Get your local weather report")
+                if filteredRetrievedLocations.count == 0
+                {
+                    Button {
+                        // trigger location request
+                        dismissSearch()
+                        UserPreferences.tempUseUserLocation = true
+                        searchLocationsText = ""
+                        selectedTabIndex = 0
+                    } label: {
+                        Text("Get your local weather report")
+                    }
                 }
-                ForEach(filteredRetrievedLocations) { location in
-                    VStack(alignment: .leading) {
-                        Button(action: {
-                            // trigger API call
-                            dismissSearch()
-                            UserPreferences.lastRetrievedLocationInfo = location
-                            searchLocationsText = ""
-                            selectedTabIndex = 0
+                else
+                {
+                    ForEach(filteredRetrievedLocations) { location in
+                        VStack(alignment: .leading) {
+                            Button(action: {
+                                // trigger API call
+                                dismissSearch()
+                                UserPreferences.lastRetrievedLocationInfo = location
+                                searchLocationsText = ""
+                                selectedTabIndex = 0
                                 
-                            
-                        }){
-                            Text(location.name)
-                                .font(.headline)
+                                
+                            }){
+                                Text(location.name)
+                                    .font(.headline)
+                            }
                         }
                     }
                 }
