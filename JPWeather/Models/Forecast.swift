@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct Forecast:Codable, Equatable
+struct Forecast:Codable, Equatable, Identifiable
 {
     let coreMeasurements:CoreMeasurements
     let weather:[Weather]
-    
+    let id = UUID()
    // let base: String
     let visibilityInMeters:Int
     let visibilityPercentage:Double
@@ -33,7 +33,7 @@ struct Forecast:Codable, Equatable
     var probPrecipitation:Double? // used in multi-day forecast
     
     // computed values
-    var lastUpdatedDate:Date
+    var dateForecasted:Date
     {
         return Date(timeIntervalSince1970: TimeInterval(dt_timestamp))
     }

@@ -227,11 +227,11 @@
 		37E9A9382ACAEBDE006434B0 /* UI */ = {
 			isa = PBXGroup;
 			children = (
-				37E9A98C2ACE815B006434B0 /* UIKit */,
 				37E9A9872ACE6086006434B0 /* Common */,
 				37E9A9642ACD05B3006434B0 /* Forecast */,
 				37E9A9652ACD05EB006434B0 /* Search */,
 				37E9A9662ACD05F4006434B0 /* Settings */,
+				37E9A98C2ACE815B006434B0 /* UIKit */,
 			);
 			path = UI;
 			sourceTree = "<group>";

@@ -31,18 +31,51 @@ struct ForecastView:View {
                     VStack(alignment: .center ,spacing: 10) {
                         ForecastWeatherIconView(currentForecast:forecast)
                         Spacer()
+                        VStack(alignment: .center ,spacing: 10) {
+                            HStack(alignment: .center, spacing: 10.0)
+                            {
+                                Spacer()
+                                Text("Lows at: " + "\(viewModel.cleanNumberDisplay(forecast.forecast.coreMeasurements.minTemperature))" + " " + "\(UserPreferences.getPreferredMeasurementUnit.unitText)")
+                                    .font(.headline)
+                                Spacer()
+                                Text("Highs at: " + "\(viewModel.cleanNumberDisplay(forecast.forecast.coreMeasurements.maxTemperature))" + " " + "\(UserPreferences.getPreferredMeasurementUnit.unitText)").font(.headline)
+                                Spacer()
+                            }
+                        }
+                        Spacer()
+                        VStack(alignment: .center ,spacing: 10) {
+                            HStack(alignment: .center, spacing: 10.0)
+                            {
+                                Spacer()
+                                Text("Pressure at: " + "\(forecast.forecast.coreMeasurements.pressure)" + " " + "hPa")
+                                    .font(.headline)
+                                Spacer()
+                                Text("Humidity at: " + "\(forecast.forecast.coreMeasurements.humidity)" + " " + "%").font(.headline)
+                                Spacer()
+                            }
+                        }
+                        Spacer()
                         if let multidayForecast = viewModel.multidayForecast
                         {
-                            Text("Forecast").font(.title)
-                            HStack(alignment: .center){
-                                for aForecast in multidayForecast
+                            Text("Forecast").font(.largeTitle).frame(maxWidth: .infinity, alignment: .leading)
+                            ScrollView(.horizontal)
+                            {
+                                HStack(alignment: .center, spacing: 10.0)
                                 {
-                                    Button {
-                                        // this would have linked to
-                                        // a detail forecast
-                                    } label: {
-                                        VStack(alignment: .center, content: {
-                                            Text("\(viewModel.makeHourText($0.dt))")
+                                    ForEach(multidayForecast.forecasts){ aForecast in
+                                        Button(action: /*@START_MENU_TOKEN@*/{}/*@END_MENU_TOKEN@*/, label: {
+                                            VStack(alignment:.center) {
+                                                Text("\(viewModel.makeHourText(date: aForecast.dateForecasted))").bold()
+                                                CachedAsyncImage(url:aForecast.weather.first?.iconURL){ image in
+                                                    image
+                                                        .resizable()
+                                                        .aspectRatio(contentMode: .fill)
+                                                        
+                                                } placeholder: {
+                                                    Color.gray
+                                                }.frame(width: 75, height: 75)
+                                                Text(aForecast.weather.first?.description ?? "")
+                                            }
                                         })
                                     }
                                 }
