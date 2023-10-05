@@ -13,7 +13,8 @@ struct SettingsView: View
     @State private var selectedUnit: TemperatureUnit = UserPreferences.getPreferredMeasurementUnit
     
     @State private var alwaysUseLocation:Bool = UserPreferences.alwaysUseUserLocation
-    
+    @Binding var selectedTabIndex:Int
+
     var body: some View {
         NavigationStack {
             Form {
@@ -32,6 +33,9 @@ struct SettingsView: View
                     }.onChange(of: alwaysUseLocation){_ in
                     
                         UserPreferences.alwaysUseUserLocation = alwaysUseLocation
+                        // we should prevent setting this
+                        // boolean if the user hasn't given us
+                        // location permissions
                         
                     }
                 }
@@ -42,5 +46,5 @@ struct SettingsView: View
     }
 }
 #Preview {
-    SettingsView()
+    SettingsView(selectedTabIndex: .constant(2))
 }

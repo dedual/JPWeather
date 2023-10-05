@@ -13,6 +13,7 @@ enum Router:Equatable
     case forecast(lat:Double, lon:Double)
     case currentWithQuery(query:String)
     case forecastWithQuery(query:String)
+    case geocode(query:String)
     // note: don't use OpenWeather's geocoding service. Apple provides a more accurate one that's free to iOS developers
     
     var url:String
@@ -24,13 +25,18 @@ enum Router:Equatable
             NetworkingConstants.OpenWeather.base +
             NetworkingConstants.OpenWeather.version +
             NetworkingConstants.OpenWeather.currentWeather
-
+            
             
         case .forecast, .forecastWithQuery:
             return NetworkingConstants.OpenWeather.host +
             NetworkingConstants.OpenWeather.base +
             NetworkingConstants.OpenWeather.version +
             NetworkingConstants.OpenWeather.forecast
+            
+        case .geocode:
+            return NetworkingConstants.OpenWeather.host +
+            NetworkingConstants.OpenWeather.geo +
+            NetworkingConstants.OpenWeather.geocode
         }
     }
     
@@ -86,7 +92,12 @@ enum Router:Equatable
                 URLQueryItem(name:"units", value: UserPreferences.getPreferredMeasurementUnit.rawValue),
                 URLQueryItem(name:"lang", value: UserPreferences.getPreferredLanguage),
             ]
-
+        case .geocode(let query):
+            return [
+                URLQueryItem(name:"q", value: "\(query)"),
+                URLQueryItem(name:"appid", value: Environment.openWeatherAPIKey),
+                URLQueryItem(name:"limit", value: "6"), // yes, hard coding for now. 
+            ]
         }
     }
     

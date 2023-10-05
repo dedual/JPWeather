@@ -17,6 +17,8 @@ public enum UserPreferences {
         static let preferredLanguage = "PreferredLanguage"
         static let lastUpdated = "LastUpdated"
         static let alwaysUseUserLocation = "AlwaysUseUserLocation"
+        static let tempUseUserLocation = "TemporarilyUseUserLocation"
+
     }
     
     // MARK: - Variables -
@@ -72,6 +74,19 @@ public enum UserPreferences {
     }
     
     static var alwaysUseUserLocation:Bool
+    {
+        get
+        {
+            return userDefaults.bool(forKey: Keys.alwaysUseUserLocation)
+        }
+        
+        set
+        {
+            userDefaults.setValue(newValue, forKey: Keys.alwaysUseUserLocation)
+        }
+    }
+    
+    static var tempUseUserLocation:Bool
     {
         get
         {

@@ -93,6 +93,16 @@ public class APIManager: HTTPClient, APIManagerProtocol
     }
     // MARK: - API calls -
     
+    //
+    func getTempLocationsInfoFromQuery(address:String) async throws -> [LocationInfo]
+    {
+        // we're getting temp LocationInfo and partly parsing OpenWeatherMap. 
+        var locations = [LocationInfo]()
+        locations = try await sendRequest(endpoint: .geocode(query: address), responseModel: [LocationInfo].self)
+
+        return locations
+    }
+    
     // Core Location ones
     @MainActor
     func currentUsingCoreLocation() async throws -> CurrentForecast

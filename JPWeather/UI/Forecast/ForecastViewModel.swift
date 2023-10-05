@@ -18,7 +18,32 @@ class ForecastViewModel:ObservableObject {
     // location permissions are rejected and the user is trying to use them.
     
     // MARK: - Methods
+    func cleanNumberDisplay(_ input:Double) -> String
+    {
+        let formatter = NumberFormatter()
+
+        formatter.usesSignificantDigits = true
+        formatter.numberStyle = NumberFormatter.Style.decimal
+        formatter.roundingMode = NumberFormatter.RoundingMode.halfUp
+        formatter.maximumFractionDigits = 2
+        
+        if let result = formatter.string(from: input as NSNumber) {
+            return result
+        }
+        else
+        {
+            return "\(input)"
+        }
+    }
     
+    func makeHourText(date:Date) -> String
+    {
+        let dateFormatter = DateFormatter()
+        dateFormatter.dateFormat = "hh:mm a"
+        
+        return dateFormatter.string(from: date)
+    }
+    // MARK: - API Calls
     func refreshForecast(locationInfo:LocationInfo)
     {
         isLoading = true

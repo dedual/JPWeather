@@ -9,73 +9,16 @@ import Foundation
 import CachedAsyncImage
 import SwiftUI
 
-struct ForecastWeatherIconView:View
-{
-    let currentForecast:CurrentForecast
-    
-    private func cleanNumberDisplay(_ input:Double) -> String // candidate for viewmodel
-    {
-        let formatter = NumberFormatter()
-
-        formatter.usesSignificantDigits = true
-        formatter.numberStyle = NumberFormatter.Style.decimal
-        formatter.roundingMode = NumberFormatter.RoundingMode.halfUp
-        formatter.maximumFractionDigits = 2
-        
-        if let result = formatter.string(from: input as NSNumber) {
-            return result
-        }
-        else
-        {
-            return "\(input)"
-        }
-    }
-    
-    private func makeHourText(date:Date) -> String
-    {
-        let dateFormatter = DateFormatter()
-        dateFormatter.dateFormat = "hh:mm a"
-        
-        return dateFormatter.string(from: date)
-    }
-            
-    var body: some View
-    {
-        HStack(alignment:.center, spacing:10.0){
-            Spacer()
-            VStack(alignment: .center, content: {
-                CachedAsyncImage(url:currentForecast.forecast.weather.first?.iconURL){ image in
-                    image
-                        .resizable()
-                        .aspectRatio(contentMode: .fill)
-                        
-                } placeholder: {
-                    Color.gray
-                }.frame(width: 75, height: 75)
-                Text(currentForecast.forecast.weather.first?.description ?? "")
-            })
-            Spacer()
-            VStack(alignment:.leading, spacing: 5)
-            {
-                Text("\(cleanNumberDisplay(currentForecast.forecast.coreMeasurements.temperature))" + " " + "\(UserPreferences.getPreferredMeasurementUnit.unitText)").fontWeight(.bold)
-                Text("feels like " + "\(cleanNumberDisplay(currentForecast.forecast.coreMeasurements.temperature))" + " " + "\(UserPreferences.getPreferredMeasurementUnit.unitText)")
-                Text("Visibility: \(cleanNumberDisplay(100.0 * currentForecast.forecast.visibilityPercentage))%")
-                Text("Sunrise at: \(makeHourText(date: currentForecast.locationInfo.sunriseDate))")
-                Text("Sunset at: \(makeHourText(date: currentForecast.locationInfo.sunsetDate))")
-            }
-            Spacer()
-        }
-    }
-}
-
 struct ForecastView:View {
-    
+    @Binding var selectedTabIndex:Int
+
     @StateObject private var viewModel:ForecastViewModel
     
     // MARK: - init
     
-    init()
+    init(selectedTabIndex:Binding<Int>)
     {
+        self._selectedTabIndex = selectedTabIndex
         let localVM = ForecastViewModel()
         _viewModel = StateObject(wrappedValue: localVM)
     }
@@ -88,6 +31,23 @@ struct ForecastView:View {
                     VStack(alignment: .center ,spacing: 10) {
                         ForecastWeatherIconView(currentForecast:forecast)
                         Spacer()
+                        if let multidayForecast = viewModel.multidayForecast
+                        {
+                            Text("Forecast").font(.title)
+                            HStack(alignment: .center){
+                                for aForecast in multidayForecast
+                                {
+                                    Button {
+                                        // this would have linked to
+                                        // a detail forecast
+                                    } label: {
+                                        VStack(alignment: .center, content: {
+                                            Text("\(viewModel.makeHourText($0.dt))")
+                                        })
+                                    }
+                                }
+                            }
+                        }
                     }
                 }
                 .toolbar {
@@ -136,9 +96,10 @@ struct ForecastView:View {
         }
         .modifier(ActivityIndicatorModifier(isLoading: viewModel.isLoading))
         .onAppear {
-            if UserPreferences.alwaysUseUserLocation
+            if UserPreferences.alwaysUseUserLocation || UserPreferences.tempUseUserLocation
             {
                 viewModel.refreshForecastUsingLocation()
+                UserPreferences.tempUseUserLocation = false
             }
             else if let location = UserPreferences.lastRetrievedLocationInfo
             {
@@ -157,5 +118,5 @@ struct ForecastView:View {
     }
 }
 #Preview {
-    ForecastView()
+    ForecastView(selectedTabIndex: .constant(0))
 }

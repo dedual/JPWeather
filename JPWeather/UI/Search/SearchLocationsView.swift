@@ -9,8 +9,13 @@ import Foundation
 import SwiftUI
 
 struct SearchLocationsView:View {
-    @State private var previousLocations = [LocationInfo]() // move these to VM
+    @SwiftUI.Environment(\.isSearching) var isSearching
+    @SwiftUI.Environment(\.dismissSearch) var dismissSearch
+    // needed because I have an enum called Environment
+    
+    @State private var previousLocations = [LocationInfo]() // move these to VM (ran out of time to implement)
     @State private var searchLocationsText = ""
+    @Binding var selectedTabIndex:Int
     
     @State var retrievedLocations: [LocationInfo] = []
 
@@ -29,10 +34,25 @@ struct SearchLocationsView:View {
     var body: some View {
         NavigationStack {
             List {
+                Button {
+                    // trigger location request
+                    dismissSearch()
+                    UserPreferences.tempUseUserLocation = true
+                    searchLocationsText = ""
+                    selectedTabIndex = 0
+                } label: {
+                    Text("Get your local weather report")
+                }
                 ForEach(filteredRetrievedLocations) { location in
                     VStack(alignment: .leading) {
                         Button(action: {
                             // trigger API call
+                            dismissSearch()
+                            UserPreferences.lastRetrievedLocationInfo = location
+                            searchLocationsText = ""
+                            selectedTabIndex = 0
+                                
+                            
                         }){
                             Text(location.name)
                                 .font(.headline)
@@ -43,7 +63,6 @@ struct SearchLocationsView:View {
             .navigationTitle("Locations")
         }
         .searchable(text: $searchLocationsText)
-        .onAppear(perform: runSearch)
         .onChange(of: searchLocationsText){ _ in
             runSearch()
         }
@@ -52,14 +71,24 @@ struct SearchLocationsView:View {
     
     func runSearch(){
         Task {
-            let locations = try await APIManager.shared.getTempLocationInfoObjects(address:searchLocationsText) ?? []
-            await MainActor.run
+            if searchLocationsText.count > 2
             {
-                retrievedLocations = locations
+                let locations = try await APIManager.shared.getTempLocationsInfoFromQuery(address:searchLocationsText)
+                await MainActor.run
+                {
+                    retrievedLocations = locations
+                }
+            }
+            else
+            {
+                await MainActor.run
+                {
+                    retrievedLocations = []
+                }
             }
         }
     }
 }
 #Preview {
-    SearchLocationsView(retrievedLocations: [])
+    SearchLocationsView(selectedTabIndex: .constant(1), retrievedLocations: [])
 }

@@ -14,10 +14,11 @@ struct NetworkingConstants
         static let host = Environment.openWeatherBaseURL
         static let base = "data/"
         static let version = "2.5/"
-        
+        static let geo = "geo/1.0/" // hard coding version here because it's the only one that's different (or so it seems). 
         // different api paths we currently support
         static let currentWeather = "weather"
         static let forecast = "forecast"
+        static let geocode = "direct"
         
         static let staleness_timelapse_seconds:Double = 600.0 // 10 minutes, though for free accounts the documentation states that data can be stale for up to 3 hours (https://openweathermap.org/full-price#current)
     }

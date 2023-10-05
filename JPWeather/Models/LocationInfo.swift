@@ -37,6 +37,7 @@ struct LocationInfo:Codable, Equatable, Identifiable
         case coord
         case sys
         case locationId = "id"
+        case localNames = "local_names"
     }
     
     enum CityKeys:String, CodingKey
@@ -50,6 +51,24 @@ struct LocationInfo:Codable, Equatable, Identifiable
         case sys
         case cityId = "id"
     }
+    
+    enum GeoKeys:String, CodingKey
+    {
+        case name
+        case lat
+        case lon
+        case state
+        case country
+    }
+    
+    // only using keys for very popular languages as a test of existence
+    enum LocalNamesKeys:String, CodingKey
+    {
+        case en
+        case ascii
+        case featureName = "feature_name"
+    }
+    
     
     enum CoordKeys:String, CodingKey
     {
@@ -118,6 +137,25 @@ struct LocationInfo:Codable, Equatable, Identifiable
             
             self.owLat = try coordContainer.decode(Double.self, forKey: .lat)
             self.owLon = try coordContainer.decode(Double.self, forKey: .lon)
+        }
+        else if let values = try? decoder.container(keyedBy: GeoKeys.self),
+                let lan = try? values.decode(Double.self, forKey: .lat)
+        {
+            let values = try decoder.container(keyedBy: GeoKeys.self)
+            var state = try? values.decode(String.self, forKey: .state)
+            
+            state = (state != nil ) ? (state! + " - ") : nil
+            self.id = Int.random(in:1..<10000) // won't matter, these are temporary values
+            self.owLat = try values.decode(Double.self, forKey: .lat)
+            self.owLon = try values.decode(Double.self, forKey: .lon)
+            self.country = try? values.decode(String.self, forKey: .country)
+            
+            self.name = try values.decode(String.self, forKey: .name)
+            self.name = self.name + " - " + (state ?? "")
+            self.name = self.name + (self.country ?? "")
+
+            self.sunrise_timestamp = 1 // again, sunrise and sunset won't matter because these are temporary values
+            self.sunset_timestamp = 1
         }
         else
         {
