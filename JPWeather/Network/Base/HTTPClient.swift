@@ -78,14 +78,26 @@ extension HTTPClient {
             case 401:
                 throw RequestError.unauthorized(code: 401)
             case 404:
-                throw RequestError.badURL("404 Error. URL Not Found")
-            default:
-                do{
-                    let decoder = JSONDecoder()
-                    decoder.dateDecodingStrategy = .iso8601
-                    let errorResponse = try decoder.decode(OpenWeatherError.self, from: data)
+                
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                if let errorResponse = try? decoder.decode(OpenWeatherError.self, from: data)
+                {
                     throw RequestError.apiError(code: errorResponse.code, error: errorResponse.message)
                 }
+                
+                throw RequestError.badURL("404 Error. URL Not Found")
+
+            default:
+            
+                let decoder = JSONDecoder()
+                decoder.dateDecodingStrategy = .iso8601
+                if let errorResponse = try? decoder.decode(OpenWeatherError.self, from: data)
+                {
+                    throw RequestError.apiError(code: errorResponse.code, error: errorResponse.message)
+                }
+                
+                throw RequestError.unknown(error: "Unknown error has occured")
             }
         }
         catch URLError.Code.notConnectedToInternet {
