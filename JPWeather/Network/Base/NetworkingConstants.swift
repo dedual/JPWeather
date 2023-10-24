@@ -80,7 +80,7 @@ enum RequestError: Error { // redo
     case badURL(_ error: String?)
     case invalidURL
     case cannotDecode
-    case apiError(code: Int, error: String?)
+    case apiError(code: String, error: String?)
     case invalidJSON
     case unauthorized(code: Int?)
     case badRequest(code: Int)

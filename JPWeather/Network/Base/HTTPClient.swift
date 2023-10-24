@@ -43,7 +43,7 @@ extension HTTPClient {
             guard let response = response as? HTTPURLResponse else {
                 throw RequestError.noResponse
             }
-            
+            print("response status code \(response.statusCode)")
             switch response.statusCode {
             case 200...299:
                 let decoder = JSONDecoder()
@@ -60,7 +60,14 @@ extension HTTPClient {
                     } catch let DecodingError.typeMismatch(type, context)  {
                         throw RequestError.unableToParseData("Type '\(type)' mismatch: \(context.debugDescription). codingPath: \(context.codingPath)")
                     } catch {
-                        throw RequestError.unknown(error: error.localizedDescription)
+                        do{
+                            let errorResponse = try decoder.decode(OpenWeatherError.self, from: data)
+                            throw RequestError.apiError(code: errorResponse.code, error: errorResponse.message)
+                        }
+                        catch let error
+                        {
+                            throw RequestError.unknown(error: error.localizedDescription)
+                        }
                     }
                 
                 guard let decodedResponse = try? JSONDecoder().decode(responseModel, from: data) else {
@@ -73,7 +80,12 @@ extension HTTPClient {
             case 404:
                 throw RequestError.badURL("404 Error. URL Not Found")
             default:
-                throw RequestError.unknown(error: "Unknown error has occured")
+                do{
+                    let decoder = JSONDecoder()
+                    decoder.dateDecodingStrategy = .iso8601
+                    let errorResponse = try decoder.decode(OpenWeatherError.self, from: data)
+                    throw RequestError.apiError(code: errorResponse.code, error: errorResponse.message)
+                }
             }
         }
         catch URLError.Code.notConnectedToInternet {
