@@ -104,66 +104,35 @@ public class APIManager: HTTPClient, APIManagerProtocol
     }
     
     // Core Location ones
-    @MainActor
-    func currentUsingCoreLocation() async throws -> CurrentForecast
-    {
-        var asyncLocationManager = AsyncLocationManager(desiredAccuracy: .bestAccuracy)
-
-        let permission = await asyncLocationManager.requestPermission(with: .whenInUsage)
-            
-            if permission == .authorizedWhenInUse || permission == .authorizedAlways
-            {
-                // we're in business
-                do{
-                    let location = try await asyncLocationManager.requestLocation()
-                    switch location {
-                    case .didUpdateLocations(let locations):
-                        if let first = locations.first{
-                            let forecast = try await current(latitude: first.coordinate.latitude, longitude: first.coordinate.longitude)
-                            
-                            return forecast
-                        }
-                        throw LocationError.unknown("Unable to decipher a coordinate from CoreLocation")
-                    case .didFailWith(let error):
-                        throw LocationError.unknown(error.localizedDescription)
-                    default:
-                        break
-                        
-                    }
-                }
-                catch
-                {
-                    throw LocationError.unknown("Something went wrong retrieving your location")
-                }
-            }
-            throw LocationError.denied("We are unable to retrieve your device's location via Location Services.\nPlease authorize.")
-    }
     
     @MainActor
-    func forecastUsingCoreLocation() async throws -> MultiDayForecast
+    func getCurrentLocation() async throws -> CLLocationCoordinate2D
     {
-        var asyncLocationManager = AsyncLocationManager(desiredAccuracy: .bestAccuracy)
-
+        var asyncLocationManager = AsyncLocationManager(desiredAccuracy: .kilometerAccuracy)
         let permission = await asyncLocationManager.requestPermission(with: .whenInUsage)
         
         if permission == .authorizedWhenInUse || permission == .authorizedAlways
         {
-            // we're in business
-            let location = try await asyncLocationManager.requestLocation()
-            switch location {
-            case .didUpdateLocations(let locations):
-                if let first = locations.first{
-                    return try await forecast(latitude: first.coordinate.latitude, longitude: first.coordinate.longitude)
+            do{
+                let location = try await asyncLocationManager.requestLocation()
+                switch location {
+                case .didUpdateLocations(let locations):
+                    if let first = locations.first
+                    {
+                        return first.coordinate
+                    }
+                    throw LocationError.unknown("Unable to decipher a coordinate from CoreLocation")
+                case .didFailWith(let error):
+                    throw LocationError.unknown(error.localizedDescription)
+                default:
+                    break
                 }
-                throw LocationError.unknown("Unable to decipher a coordinate from CoreLocation")
-            case .didFailWith(let error):
-                throw LocationError.unknown(error.localizedDescription)
-            default:
-                break
-                
+            }
+            catch
+            {
+                throw LocationError.unknown("Something went wrong retrieving your location")
             }
         }
-        
         throw LocationError.denied("We are unable to retrieve your device's location via Location Services.\nPlease authorize.")
     }
     
