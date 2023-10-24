@@ -7,6 +7,8 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		370876372AE83E7D0058AF3A /* NetworkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370876362AE83E7D0058AF3A /* NetworkHandlerTests.swift */; };
+		370876392AE83FCE0058AF3A /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370876382AE83FCE0058AF3A /* TestData.swift */; };
 		37E9A90D2ACAE8E3006434B0 /* JPWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A90C2ACAE8E3006434B0 /* JPWeatherApp.swift */; };
 		37E9A90F2ACAE8E3006434B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A90E2ACAE8E3006434B0 /* ContentView.swift */; };
 		37E9A9112ACAE8E5006434B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37E9A9102ACAE8E5006434B0 /* Assets.xcassets */; };
@@ -66,6 +68,8 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		370876362AE83E7D0058AF3A /* NetworkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandlerTests.swift; sourceTree = "<group>"; };
+		370876382AE83FCE0058AF3A /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		37E9A9092ACAE8E3006434B0 /* JPWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JPWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E9A90C2ACAE8E3006434B0 /* JPWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPWeatherApp.swift; sourceTree = "<group>"; };
 		37E9A90E2ACAE8E3006434B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -189,6 +193,8 @@
 			isa = PBXGroup;
 			children = (
 				37E9A91D2ACAE8E5006434B0 /* JPWeatherTests.swift */,
+				370876362AE83E7D0058AF3A /* NetworkHandlerTests.swift */,
+				370876382AE83FCE0058AF3A /* TestData.swift */,
 			);
 			path = JPWeatherTests;
 			sourceTree = "<group>";
@@ -504,7 +510,9 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				370876392AE83FCE0058AF3A /* TestData.swift in Sources */,
 				37E9A91E2ACAE8E5006434B0 /* JPWeatherTests.swift in Sources */,
+				370876372AE83E7D0058AF3A /* NetworkHandlerTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -662,7 +670,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JPWeather/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = SN59QVYLWK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JPWeather/Info.plist;
@@ -694,7 +702,7 @@
 				CODE_SIGN_STYLE = Automatic;
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_ASSET_PATHS = "\"JPWeather/Preview Content\"";
-				DEVELOPMENT_TEAM = "";
+				DEVELOPMENT_TEAM = SN59QVYLWK;
 				ENABLE_PREVIEWS = YES;
 				GENERATE_INFOPLIST_FILE = YES;
 				INFOPLIST_FILE = JPWeather/Info.plist;
@@ -727,7 +735,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SN59QVYLWK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deent.JPWeatherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -747,7 +755,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SN59QVYLWK;
 				GENERATE_INFOPLIST_FILE = YES;
-				IPHONEOS_DEPLOYMENT_TARGET = 17.0;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deent.JPWeatherTests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -766,6 +774,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SN59QVYLWK;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deent.JPWeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
@@ -784,6 +793,7 @@
 				CURRENT_PROJECT_VERSION = 1;
 				DEVELOPMENT_TEAM = SN59QVYLWK;
 				GENERATE_INFOPLIST_FILE = YES;
+				IPHONEOS_DEPLOYMENT_TARGET = 16.0;
 				MARKETING_VERSION = 1.0;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deent.JPWeatherUITests;
 				PRODUCT_NAME = "$(TARGET_NAME)";
