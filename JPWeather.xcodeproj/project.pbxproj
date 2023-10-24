@@ -7,9 +7,10 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
-		370876372AE83E7D0058AF3A /* NetworkHandlerTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370876362AE83E7D0058AF3A /* NetworkHandlerTests.swift */; };
+		370876372AE83E7D0058AF3A /* ForecastTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370876362AE83E7D0058AF3A /* ForecastTests.swift */; };
 		370876392AE83FCE0058AF3A /* TestData.swift in Sources */ = {isa = PBXBuildFile; fileRef = 370876382AE83FCE0058AF3A /* TestData.swift */; };
 		3708763B2AE84EED0058AF3A /* OpenWeatherError.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708763A2AE84EED0058AF3A /* OpenWeatherError.swift */; };
+		3708763D2AE860C30058AF3A /* SearchTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3708763C2AE860C30058AF3A /* SearchTests.swift */; };
 		37E9A90D2ACAE8E3006434B0 /* JPWeatherApp.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A90C2ACAE8E3006434B0 /* JPWeatherApp.swift */; };
 		37E9A90F2ACAE8E3006434B0 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 37E9A90E2ACAE8E3006434B0 /* ContentView.swift */; };
 		37E9A9112ACAE8E5006434B0 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 37E9A9102ACAE8E5006434B0 /* Assets.xcassets */; };
@@ -69,9 +70,10 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
-		370876362AE83E7D0058AF3A /* NetworkHandlerTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = NetworkHandlerTests.swift; sourceTree = "<group>"; };
+		370876362AE83E7D0058AF3A /* ForecastTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ForecastTests.swift; sourceTree = "<group>"; };
 		370876382AE83FCE0058AF3A /* TestData.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = TestData.swift; sourceTree = "<group>"; };
 		3708763A2AE84EED0058AF3A /* OpenWeatherError.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = OpenWeatherError.swift; sourceTree = "<group>"; };
+		3708763C2AE860C30058AF3A /* SearchTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SearchTests.swift; sourceTree = "<group>"; };
 		37E9A9092ACAE8E3006434B0 /* JPWeather.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = JPWeather.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		37E9A90C2ACAE8E3006434B0 /* JPWeatherApp.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = JPWeatherApp.swift; sourceTree = "<group>"; };
 		37E9A90E2ACAE8E3006434B0 /* ContentView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ContentView.swift; sourceTree = "<group>"; };
@@ -195,7 +197,8 @@
 			isa = PBXGroup;
 			children = (
 				37E9A91D2ACAE8E5006434B0 /* JPWeatherTests.swift */,
-				370876362AE83E7D0058AF3A /* NetworkHandlerTests.swift */,
+				3708763C2AE860C30058AF3A /* SearchTests.swift */,
+				370876362AE83E7D0058AF3A /* ForecastTests.swift */,
 				370876382AE83FCE0058AF3A /* TestData.swift */,
 			);
 			path = JPWeatherTests;
@@ -516,7 +519,8 @@
 			files = (
 				370876392AE83FCE0058AF3A /* TestData.swift in Sources */,
 				37E9A91E2ACAE8E5006434B0 /* JPWeatherTests.swift in Sources */,
-				370876372AE83E7D0058AF3A /* NetworkHandlerTests.swift in Sources */,
+				370876372AE83E7D0058AF3A /* ForecastTests.swift in Sources */,
+				3708763D2AE860C30058AF3A /* SearchTests.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -689,7 +693,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deent.JPWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;
@@ -721,7 +725,7 @@
 					"$(inherited)",
 					"@executable_path/Frameworks",
 				);
-				MARKETING_VERSION = 1.0;
+				MARKETING_VERSION = 0.2.1;
 				PRODUCT_BUNDLE_IDENTIFIER = com.deent.JPWeather;
 				PRODUCT_NAME = "$(TARGET_NAME)";
 				SWIFT_EMIT_LOC_STRINGS = YES;

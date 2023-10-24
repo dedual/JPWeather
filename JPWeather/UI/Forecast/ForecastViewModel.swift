@@ -48,8 +48,8 @@ class ForecastViewModel: ObservableObject {
     
     private func refreshForecast(lat:Double, lon:Double) async
     {
-        isLoading = true
         Task{
+            isLoading = true
             do
             {
                 let tempWeather = try await APIManager.shared.current(latitude: lat, longitude: lon)

@@ -47,7 +47,9 @@ public class APIManager: HTTPClient, APIManagerProtocol
 
     // MARK: - Private functions
     
-    func getTempLocationInfoObjects(address:String) async throws -> [LocationInfo]?
+    // Location results retrieved from Apple's MKLocalSearch. Doesn't work as well the one from OpenWeatherAPI
+    // Keeping as reference, but making it inaccessible.
+    private func getTempLocationInfoObjects(address:String) async throws -> [LocationInfo]?
     {
         localRequest.naturalLanguageQuery = address
         let localSearch = MKLocalSearch(request:localRequest)
@@ -93,11 +95,43 @@ public class APIManager: HTTPClient, APIManagerProtocol
     }
     // MARK: - API calls -
     
+    func returnValidAddressQueryString(_ query:String) -> String?
+    {
+        let detector = try! NSDataDetector(types: NSTextCheckingResult.CheckingType.address.rawValue)
+        let matches = detector.matches(in: query, options: [], range: NSRange(location: 0, length: query.utf16.count))
+        
+        var resultsArray =  [[NSTextCheckingKey: String]]()
+        
+        for match in matches 
+        {
+            if match.resultType == .address,
+              let components = match.addressComponents {
+                resultsArray.append(components)
+            }
+        }
+                
+        if let first = resultsArray.first
+        {
+            let OWAPI_SanitizedQueryAddress = (first[.city] != nil ? (first[.city]! + ", ") : "") + (first[.state] != nil ? (first[.state]! + ", ") : "")  + (first[.country] != nil ? (first[.country]! + ", ") : "")
+            return OWAPI_SanitizedQueryAddress
+        }
+        
+        return nil
+    }
+    
     //
     func getTempLocationsInfoFromQuery(address:String) async throws -> [LocationInfo]
     {
         // we're getting temp LocationInfo and partly parsing OpenWeatherMap. 
         var locations = [LocationInfo]()
+        
+        // validate query text is valid
+        if let validAddress = returnValidAddressQueryString(address)
+        {
+            locations = try await sendRequest(endpoint: .geocode(query: validAddress), responseModel: [LocationInfo].self)
+            return locations
+        }
+        
         locations = try await sendRequest(endpoint: .geocode(query: address), responseModel: [LocationInfo].self)
 
         return locations
@@ -156,8 +190,12 @@ public class APIManager: HTTPClient, APIManagerProtocol
         // as that costs money
         // 2) There was a notice that the query-based results were going to be deprecated? Out of an overabundance of caution, we'll default to Apple results first
         
+        if let validAddress = returnValidAddressQueryString(address)
+        {
+            return try await sendRequest(endpoint: .currentWithQuery(query: validAddress), responseModel: CurrentForecast.self)
+        }
+        
         return try await sendRequest(endpoint: .currentWithQuery(query: address), responseModel: CurrentForecast.self)
-       
     }
     
     func forecast(latitude: Double, longitude: Double) async throws -> MultiDayForecast {
@@ -170,6 +208,11 @@ public class APIManager: HTTPClient, APIManagerProtocol
         if let currentLocation = location
         {
             return try await sendRequest(endpoint: .forecast(lat: currentLocation.latitude, lon: currentLocation.longitude), responseModel: MultiDayForecast.self)
+        }
+                
+        if let validAddress = returnValidAddressQueryString(address)
+        {
+            return try await sendRequest(endpoint: .currentWithQuery(query: validAddress), responseModel: MultiDayForecast.self)
         }
         
         return try await sendRequest(endpoint: .forecastWithQuery(query: address), responseModel: MultiDayForecast.self)

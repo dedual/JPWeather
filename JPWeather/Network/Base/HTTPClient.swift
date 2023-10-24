@@ -43,7 +43,6 @@ extension HTTPClient {
             guard let response = response as? HTTPURLResponse else {
                 throw RequestError.noResponse
             }
-            print("response status code \(response.statusCode)")
             switch response.statusCode {
             case 200...299:
                 let decoder = JSONDecoder()
