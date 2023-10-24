@@ -23,7 +23,7 @@ The repo fulfills the requirements (except explicit use of Size classes, as our 
 
 That being said, there are a number of quirks and bugs I’ll fix when able: 
 
-1) CoreLocation-based data retrieval is abysmally slow. In working with the new async/await concurrency model, the library I’m using requires that its main object be created on the main thread. I’m doing this twice (which is redundant but I needed to get this project out asap) as well, which inherently slows things down performance a lot. 
+~~1) CoreLocation-based data retrieval is abysmally slow. In working with the new async/await concurrency model, the library I’m using requires that its main object be created on the main thread. I’m doing this twice (which is redundant but I needed to get this project out asap) as well, which inherently slows things down performance a lot. ~~ Fixed in version 0.2.1
 2) Had plans to implement caching for some of our JSON objects, but simply ran out of time and other things were important to implement. 
-3) No unit tests nor UI tests. Again, sacrificed to meet deadlines, but I did try to capture gracefully most errors that I could foresee. 
+~~3) No unit tests nor UI tests. Again, sacrificed to meet deadlines, but I did try to capture gracefully most errors that I could foresee.  ~~ Fixed in version 0.2.1
 4) Selecting a location in search triggers a warning on the console that goes `**=== AttributeGraph: cycle detected through attribute**`. I suspect this is because we’re not handling the dismissal of the search bar well enough, and there’s a subtle conflict between that UI action and the app switching tabs and reloading the screen (ahh, a SwiftUI quirk). There’s definitely a proper, SwiftUI compliant way to ensure this doesn’t happen. However, deadlines and exhaustion have forced a repriotarization of tasks to complete, and there's no apparent impact on performance as far as I can see so ¯\_(ツ)_/¯. 
